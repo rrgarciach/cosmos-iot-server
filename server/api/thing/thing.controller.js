@@ -11,9 +11,21 @@
 
 var _ = require('lodash');
 var Thing = require('./thing.model');
+const mqttServer = require('../../components/mosca')
 
 // Get list of things
 exports.index = function(req, res) {
+  var msg = {
+    topic: '/things',
+    payload: 'YOU WONT_SEE_THIS!', // or a Buffer
+    qos: 0, // 0, 1, or 2
+    retain: false // or true
+  };
+  setTimeout(function () {
+    mqttServer.publish(msg, function() {
+      console.log('PUBLISHED!!!!!!!!');
+    });
+  }, 1000);
   Thing.find(function (err, things) {
     if(err) { return handleError(res, err); }
     return res.status(200).json(things);
