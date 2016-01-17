@@ -10,6 +10,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var express = require('express');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
+const mqttServer = require('./components/mosca')
 
 // Connect to database
 mongoose.connect(config.mongo.uri, config.mongo.options);
@@ -36,6 +37,9 @@ require('./routes')(app);
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
+
+// Start MQTT server
+mqttServer.init();
 
 // Expose app
 exports = module.exports = app;
