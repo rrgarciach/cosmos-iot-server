@@ -614,14 +614,14 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'env:all',
-      'injector:sass', 
+      //'injector:sass',
       'concurrent:server',
       'injector',
-      'wiredep',
-      'autoprefixer',
+      //'wiredep',
+      //'autoprefixer',
       'express:dev',
-      'wait',
-      'open',
+      //'wait',
+      //'open',
       'watch'
     ]);
   });
